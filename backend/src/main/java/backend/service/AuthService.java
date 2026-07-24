@@ -3,7 +3,10 @@ package backend.service;
 import backend.dto.LoginRequest;
 import backend.dto.RegisterRequest;
 import backend.entity.User;
+import backend.exception.DuplicateResourceException;
+import backend.exception.InvalidCredentialsException;
 import backend.repository.UserRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +39,7 @@ public class AuthService {
                 && !request.getEmail().isBlank()
                 && userRepository.existsByEmail(request.getEmail())) {
 
-            throw new IllegalArgumentException(
+            throw new DuplicateResourceException(
                     "Email is already registered"
             );
         }
@@ -46,7 +49,7 @@ public class AuthService {
                 && !request.getPhone().isBlank()
                 && userRepository.existsByPhone(request.getPhone())) {
 
-            throw new IllegalArgumentException(
+            throw new DuplicateResourceException(
                     "Phone number is already registered"
             );
         }
@@ -64,7 +67,16 @@ public class AuthService {
                 passwordEncoder.encode(request.getPassword())
         );
 
-        return userRepository.save(user);
+        try {
+            return userRepository.save(user);
+
+        } catch (DataIntegrityViolationException ex) {
+            // Handles race conditions where another request
+            // registers the same email or phone simultaneously
+            throw new DuplicateResourceException(
+                    "Email or phone number is already registered"
+            );
+        }
     }
 
     // User Login
@@ -78,7 +90,7 @@ public class AuthService {
         if (identifier.contains("@")) {
 
             user = userRepository.findByEmail(identifier)
-                    .orElseThrow(() -> new IllegalArgumentException(
+                    .orElseThrow(() -> new InvalidCredentialsException(
                             "Invalid email or password"
                     ));
 
@@ -86,7 +98,7 @@ public class AuthService {
 
             // Otherwise treat identifier as phone
             user = userRepository.findByPhone(identifier)
-                    .orElseThrow(() -> new IllegalArgumentException(
+                    .orElseThrow(() -> new InvalidCredentialsException(
                             "Invalid phone or password"
                     ));
         }
@@ -96,7 +108,7 @@ public class AuthService {
                 request.getPassword(),
                 user.getPassword())) {
 
-            throw new IllegalArgumentException(
+            throw new InvalidCredentialsException(
                     "Invalid email/phone or password"
             );
         }

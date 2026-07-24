@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -12,11 +13,8 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    // Secret key for signing JWT tokens
-    // This is for development purposes.
-    // In production, keep this in environment variables.
-    private static final String SECRET_KEY =
-            "mySecretKeyForContactManagementSystemJwtAuthentication2026";
+    @Value("${jwt.secret}")
+    private String secretKey;
 
     // Token validity: 24 hours
     private static final long EXPIRATION_TIME =
@@ -67,10 +65,7 @@ public class JwtService {
     // Create signing key
     private SecretKey getSigningKey() {
 
-        byte[] keyBytes = Decoders.BASE64.decode(
-                java.util.Base64.getEncoder()
-                        .encodeToString(SECRET_KEY.getBytes())
-        );
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
 
         return Keys.hmacShaKeyFor(keyBytes);
     }
