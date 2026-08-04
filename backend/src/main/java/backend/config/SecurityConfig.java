@@ -23,150 +23,136 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
-    this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-}
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
 
-@Bean
-public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-// CORS configuration for React Vite frontend
-@Bean
-public CorsConfigurationSource corsConfigurationSource() {
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
 
-    CorsConfiguration configuration = new CorsConfiguration();
+        CorsConfiguration configuration = new CorsConfiguration();
 
-    configuration.setAllowedOrigins(
-            List.of("http://localhost:5173")
-    );
+        configuration.setAllowedOrigins(
+                List.of("http://localhost:5173")
+        );
 
-    configuration.setAllowedMethods(
-            List.of(
-                    "GET",
-                    "POST",
-                    "PUT",
-                    "DELETE",
-                    "OPTIONS"
-            )
-    );
+        configuration.setAllowedMethods(
+                List.of(
+                        "GET",
+                        "POST",
+                        "PUT",
+                        "DELETE",
+                        "OPTIONS"
+                )
+        );
 
-    configuration.setAllowedHeaders(
-            List.of(
-                    "Authorization",
-                    "Content-Type"
-            )
-    );
+        configuration.setAllowedHeaders(
+                List.of(
+                        "Authorization",
+                        "Content-Type"
+                )
+        );
 
-    configuration.setAllowCredentials(true);
+        configuration.setAllowCredentials(true);
 
-    UrlBasedCorsConfigurationSource source =
-            new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
 
-    source.registerCorsConfiguration(
-            "/**",
-            configuration
-    );
+        source.registerCorsConfiguration(
+                "/**",
+                configuration
+        );
 
-    return source;
-}
+        return source;
+    }
 
-// Prevent JwtAuthenticationFilter from being
-// automatically registered by the servlet container.
-// It will only run through Spring Security filter chain.
-@Bean
-public FilterRegistrationBean<JwtAuthenticationFilter>
-jwtFilterRegistration(
-        JwtAuthenticationFilter filter) {
+    @Bean
+    public FilterRegistrationBean<JwtAuthenticationFilter>
+    jwtFilterRegistration(
+            JwtAuthenticationFilter filter) {
 
-    FilterRegistrationBean<JwtAuthenticationFilter> registration =
-            new FilterRegistrationBean<>(filter);
+        FilterRegistrationBean<JwtAuthenticationFilter> registration =
+                new FilterRegistrationBean<>(filter);
 
-    registration.setEnabled(false);
+        registration.setEnabled(false);
 
-    return registration;
-}
+        return registration;
+    }
 
-@Bean
-public SecurityFilterChain securityFilterChain(
-        HttpSecurity http)
-        throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http)
+            throws Exception {
 
-    http
-            // Enable CORS
-            .cors(cors ->
-                    cors.configurationSource(
-                            corsConfigurationSource()
-                    )
-            )
+        http
+                .cors(cors ->
+                        cors.configurationSource(
+                                corsConfigurationSource()
+                        )
+                )
 
-            // Disable CSRF
-            .csrf(csrf ->
-                    csrf.disable()
-            )
+                .csrf(csrf ->
+                        csrf.disable()
+                )
 
-            // Disable default username/password authentication
-            .httpBasic(httpBasic ->
-                    httpBasic.disable()
-            )
+                .httpBasic(httpBasic ->
+                        httpBasic.disable()
+                )
 
-            .formLogin(formLogin ->
-                    formLogin.disable()
-            )
+                .formLogin(formLogin ->
+                        formLogin.disable()
+                )
 
-            // JWT is stateless
-            .sessionManagement(session ->
-                    session.sessionCreationPolicy(
-                            SessionCreationPolicy.STATELESS
-                    )
-            )
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(
+                                SessionCreationPolicy.STATELESS
+                        )
+                )
 
-            // Authentication and authorization rules
-            .authorizeHttpRequests(auth ->
-                    auth
+                .authorizeHttpRequests(auth ->
+                        auth
+                                .requestMatchers(
+                                        HttpMethod.OPTIONS,
+                                        "/**"
+                                )
+                                .permitAll()
 
-                            // Allow CORS preflight requests
-                            .requestMatchers(
-                                    HttpMethod.OPTIONS,
-                                    "/**"
-                            )
-                            .permitAll()
+                                // Only registration and login are public
+                                .requestMatchers(
+                                        "/api/auth/register",
+                                        "/api/auth/login"
+                                )
+                                .permitAll()
 
-                            // Register and Login are public
-                            .requestMatchers(
-                                    "/api/auth/**"
-                            )
-                            .permitAll()
+                                // All other endpoints require authentication
+                                .anyRequest()
+                                .authenticated()
+                )
 
-                            // Everything else requires JWT
-                            .anyRequest()
-                            .authenticated()
-            )
+                .exceptionHandling(exception ->
+                        exception.authenticationEntryPoint(
+                                (request,
+                                 response,
+                                 authException) ->
+                                        response.sendError(
+                                                HttpStatus.UNAUTHORIZED.value(),
+                                                "Unauthorized"
+                                        )
+                        )
+                )
 
-            // Return 401 for unauthenticated requests
-            .exceptionHandling(exception ->
-                    exception.authenticationEntryPoint(
-                            (request,
-                             response,
-                             authException) ->
-                                    response.sendError(
-                                            HttpStatus.UNAUTHORIZED.value(),
-                                            "Unauthorized"
-                                    )
-                    )
-            )
+                .addFilterBefore(
+                        jwtAuthenticationFilter,
+                        UsernamePasswordAuthenticationFilter.class
+                );
 
-            // Add JWT filter before UsernamePasswordAuthenticationFilter
-            .addFilterBefore(
-                    jwtAuthenticationFilter,
-                    UsernamePasswordAuthenticationFilter.class
-            );
-
-    return http.build();
-}
-
-
+        return http.build();
+    }
 }

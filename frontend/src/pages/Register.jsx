@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../services/api";
@@ -35,16 +36,18 @@ function Register() {
         formData
       );
 
-      // Save JWT token
+      // Save JWT token for authenticated API requests
       localStorage.setItem(
         "token",
         response.data.token
       );
 
-      // Save registered user
+      // Save registered user data without JWT token
+      const { token, ...userData } = response.data;
+
       localStorage.setItem(
         "user",
-        JSON.stringify(response.data)
+        JSON.stringify(userData)
       );
 
       // Go to dashboard
@@ -170,3 +173,4 @@ function Register() {
 }
 
 export default Register;
+
