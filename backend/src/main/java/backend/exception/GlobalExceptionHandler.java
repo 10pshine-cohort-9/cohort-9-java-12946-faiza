@@ -51,6 +51,7 @@ public class GlobalExceptionHandler {
         Map<String, String> response = new HashMap<>();
         response.put("error", ex.getMessage());
 
+
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
                 .body(response);

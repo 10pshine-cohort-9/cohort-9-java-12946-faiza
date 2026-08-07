@@ -118,3 +118,30 @@ export function IconTrash(props) {
     </svg>
   );
 }
+export function IconLock(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" {...base} {...props}>
+      <rect x="3" y="11" width="18" height="10" rx="2" />
+      <path d="M7 11V8a5 5 0 0 1 10 0v3" />
+    </svg>
+  );
+}
+
+export function IconArrowRight(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" {...base} strokeWidth="2.4" {...props}>
+      <line x1="5" y1="12" x2="19" y2="12" />
+      <polyline points="12 5 19 12 12 19" />
+    </svg>
+  );
+}
+
+export function IconAlertCircle(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" {...base} {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" y1="8" x2="12" y2="12" />
+      <circle cx="12" cy="16.5" r="0.5" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
