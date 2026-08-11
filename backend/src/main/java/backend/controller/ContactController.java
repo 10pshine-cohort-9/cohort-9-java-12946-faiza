@@ -10,10 +10,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/contacts")
@@ -101,6 +105,71 @@ public class ContactController {
         log.info("Get contacts API completed successfully");
 
         return ResponseEntity.ok(contacts);
+    }
+
+    // Export all contacts as CSV
+    @GetMapping(value = "/export", produces = "text/csv")
+    public ResponseEntity<String> exportContacts(
+            Authentication authentication) {
+
+        log.info("Export contacts API request received");
+
+        String userEmail = authentication.getName();
+
+        List<ContactResponse> contacts =
+                contactService.exportContacts(userEmail);
+
+        StringBuilder csv = new StringBuilder();
+
+        csv.append(
+                "First Name,Last Name,Title,Work Email,Personal Email,"
+                        + "Work Phone,Home Phone,Personal Phone\n"
+        );
+
+        for (ContactResponse contact : contacts) {
+            csv.append(escapeCsvCell(contact.getFirstName())).append(",")
+                    .append(escapeCsvCell(contact.getLastName())).append(",")
+                    .append(escapeCsvCell(contact.getTitle())).append(",")
+                    .append(escapeCsvCell(contact.getWorkEmail())).append(",")
+                    .append(escapeCsvCell(contact.getPersonalEmail())).append(",")
+                    .append(escapeCsvCell(contact.getWorkPhone())).append(",")
+                    .append(escapeCsvCell(contact.getHomePhone())).append(",")
+                    .append(escapeCsvCell(contact.getPersonalPhone()))
+                    .append("\n");
+        }
+
+        log.info(
+                "Export contacts API completed successfully. Total contacts: {}",
+                contacts.size()
+        );
+
+        return ResponseEntity.ok()
+                .header(
+                        HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=contacts.csv"
+                )
+                .contentType(MediaType.parseMediaType("text/csv"))
+                .body(csv.toString());
+    }
+
+    // Escape CSV values and prevent spreadsheet formula injection
+    private String escapeCsvCell(String value) {
+
+        if (value == null) {
+            return "";
+        }
+
+        String escaped = value.replace("\"", "\"\"");
+
+        if (escaped.startsWith("=")
+                || escaped.startsWith("+")
+                || escaped.startsWith("-")
+                || escaped.startsWith("@")) {
+
+            escaped = "'" + escaped;
+        }
+
+        return "\"" + escaped + "\"";
     }
 
     // Get contact by ID

@@ -20,15 +20,13 @@
     <name>backend</name>
     <description>Contact Management System Backend</description>
 
-    <properties>
-        <java.version>21</java.version>
+   <properties>
+    <java.version>21</java.version>
 
-        <!-- SonarQube Configuration -->
-       
-        <sonar.projectName>Contact Management Backend</sonar.projectName>
-        <sonar.host.url>http://localhost:9000</sonar.host.url>
+    <!-- SonarQube Configuration -->
+    <sonar.projectName>Contact Management Backend</sonar.projectName>
 
-    </properties>
+</properties>
 
 
     <dependencies>

@@ -67,20 +67,39 @@ function Dashboard() {
 
   const pageSize = 6;
 
-  const clearSession = () => {
+ const clearSession = () => {
+  try {
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
-  };
+  } catch (err) {
+    console.error("Failed to clear stored token.", err);
+  }
 
-  const getUserFromStorage = () => {
-    try {
-      const storedUser = localStorage.getItem("user");
-      return storedUser ? JSON.parse(storedUser) : null;
-    } catch (error) {
-      clearSession();
+  try {
+    localStorage.removeItem("user");
+  } catch (err) {
+    console.error("Failed to clear stored user.", err);
+  }
+};
+ const getUserFromStorage = () => {
+  try {
+    const storedUser = localStorage.getItem("user");
+
+    if (!storedUser) {
       return null;
     }
-  };
+
+    return JSON.parse(storedUser);
+  } catch (err) {
+    try {
+      localStorage.removeItem("user");
+    } catch (storageErr) {
+      console.error("Failed to remove invalid stored user.", storageErr);
+    }
+
+    console.error("Failed to read stored user.", err);
+    return null;
+  }
+};
 
   const user = getUserFromStorage();
 
@@ -125,6 +144,36 @@ function Dashboard() {
     clearSession();
     navigate("/login");
   };
+
+  const handleExport = async () => {
+  try {
+    const response = await api.get("/contacts/export", {
+      responseType: "blob",
+    });
+
+   const url = window.URL.createObjectURL(response.data);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "contacts.csv");
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    window.URL.revokeObjectURL(url);
+    await fetchContacts();
+} catch (err) {
+  if (err.response?.status === 401) {
+    clearSession();
+    navigate("/login");
+    return;
+  }
+
+  alert("Failed to export contacts.");
+  console.error(err);
+}
+};
 
   const getInitials = (contact) => {
     const first = contact.firstName?.[0] || "";
@@ -862,6 +911,12 @@ function Dashboard() {
               <IconUser />
               My Profile
             </button>
+            <button
+  className="sidebar-link"
+  onClick={handleExport}
+>
+  📥 Export Contacts
+</button>
           </nav>
 
           <div className="sidebar-divider"></div>
@@ -888,6 +943,12 @@ function Dashboard() {
               <button className="profile-button" onClick={() => navigate("/profile")}>
                 My Profile
               </button>
+              <button
+  className="profile-button"
+  onClick={handleExport}
+>
+  Export CSV
+</button>
               <button className="logout-button" onClick={handleLogout}>
                 Logout
               </button>

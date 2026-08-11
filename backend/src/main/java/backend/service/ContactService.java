@@ -14,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ContactService {
@@ -31,6 +33,24 @@ public class ContactService {
         this.contactRepository = contactRepository;
         this.userRepository = userRepository;
     }
+    
+    @Transactional(readOnly = true)
+public List<ContactResponse> exportContacts(String userEmail) {
+
+    User user = getUserByEmail(userEmail);
+
+    List<Contact> contacts = contactRepository.findByUser(user);
+
+    log.info(
+            "Exporting {} contacts for user: {}",
+            contacts.size(),
+            userEmail
+    );
+
+    return contacts.stream()
+            .map(this::mapToResponse)
+            .collect(Collectors.toList());
+}
 
     @Transactional
     public ContactResponse createContact(
