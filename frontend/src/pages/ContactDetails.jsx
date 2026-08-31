@@ -107,18 +107,18 @@ function ContactDetails() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', background: '#f5f3ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ minHeight: '100vh', background: 'var(--background)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ 
             width: '48px', 
             height: '48px', 
-            border: '3px solid #e9d5ff', 
-            borderTopColor: '#8b5cf6', 
+                border: '3px solid var(--border)', 
+                borderTopColor: 'var(--primary)', 
             borderRadius: '50%', 
             margin: '0 auto 16px',
             animation: 'spin 0.7s linear infinite'
           }}></div>
-          <p style={{ color: '#8b8a9e', fontSize: '14px' }}>Loading contact details...</p>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>Loading contact details...</p>
         </div>
         <style>{`
           @keyframes spin {
@@ -131,14 +131,14 @@ function ContactDetails() {
 
   if (error && !contact) {
     return (
-      <div style={{ minHeight: '100vh', background: '#f5f3ff', padding: '40px 5%' }}>
+          <div style={{ minHeight: '100vh', background: 'var(--background)', padding: '40px 5%' }}>
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
           <div style={{ 
             padding: '14px 20px', 
             borderRadius: '12px', 
-            background: '#fef2f2', 
-            color: '#991b1b', 
-            border: '1px solid #fecaca',
+            background: 'var(--danger-light)', 
+            color: 'var(--danger)', 
+            border: '1px solid rgba(220,34,34,0.12)',
             marginBottom: '20px'
           }}>❌ {error}</div>
           <button
@@ -147,20 +147,20 @@ function ContactDetails() {
               padding: '12px 24px',
               borderRadius: '12px',
               border: 'none',
-              background: 'linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%)',
+              background: 'var(--primary)',
               color: '#fff',
               fontWeight: 600,
               fontSize: '14px',
               cursor: 'pointer',
-              boxShadow: '0 4px 16px rgba(139, 92, 246, 0.2)',
+              boxShadow: '0 4px 16px rgba(var(--primary-rgb), 0.18)',
               transition: 'all 0.3s ease'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 6px 28px rgba(139, 92, 246, 0.35)';
+              e.currentTarget.style.boxShadow = '0 6px 28px rgba(var(--primary-rgb), 0.28)';
               e.currentTarget.style.transform = 'translateY(-2px)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = '0 4px 16px rgba(139, 92, 246, 0.2)';
+              e.currentTarget.style.boxShadow = '0 4px 16px rgba(var(--primary-rgb), 0.18)';
               e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
@@ -188,7 +188,7 @@ function ContactDetails() {
 
         body {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-          background: #f5f3ff;
+          background: var(--background);
         }
 
         /* ===== Animations ===== */
@@ -219,7 +219,7 @@ function ContactDetails() {
         /* ===== APP CONTAINER ===== */
         .app-container {
           min-height: 100vh;
-          background: #f5f3ff;
+          background: var(--background);
         }
 
         /* ===== HEADER ===== */
@@ -228,7 +228,7 @@ function ContactDetails() {
           padding: 16px 5%;
           background: rgba(255, 255, 255, 0.7);
           backdrop-filter: blur(16px);
-          border-bottom: 1px solid rgba(233, 213, 255, 0.5);
+          border-bottom: 1px solid var(--border);
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -284,35 +284,35 @@ function ContactDetails() {
           gap: 8px;
           padding: 10px 20px;
           border-radius: 12px;
-          border: 1.5px solid #e9d5ff;
-          background: #ffffff;
-          color: #4c1d95;
+          border: 1.5px solid var(--border);
+          background: var(--surface);
+          color: var(--heading-color);
           font-weight: 600;
           font-size: 13px;
-          transition: all 0.3s ease;
+          transition: all 0.18s ease;
           cursor: pointer;
           margin-bottom: 20px;
         }
 
         .back-button:hover {
-          border-color: #a78bfa;
-          background: #f3e8ff;
+          border-color: var(--border-strong);
+          background: rgba(var(--primary-rgb), 0.06);
           transform: translateX(-4px);
         }
 
         /* ===== DETAILS CARD ===== */
         .contact-details-card {
-          background: #ffffff;
-          border: 1px solid #e9d5ff;
+          background: var(--surface);
+          border: 1px solid var(--border);
           border-radius: 20px;
           padding: 36px 40px;
-          box-shadow: 0 4px 20px rgba(139, 92, 246, 0.04);
+          box-shadow: 0 6px 24px rgba(16,24,40,0.04);
           animation: fadeInUp 0.5s ease;
         }
 
         .contact-details-header {
           padding-bottom: 24px;
-          border-bottom: 1px solid #f3e8ff;
+          border-bottom: 1px solid var(--border);
           display: flex;
           align-items: center;
           gap: 20px;
@@ -325,8 +325,8 @@ function ContactDetails() {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
-          color: #7c3aed;
+          background: linear-gradient(135deg, var(--primary), var(--sidebar-bg));
+          color: #ffffff;
           font-weight: 700;
           font-size: 24px;
           flex-shrink: 0;
@@ -335,12 +335,12 @@ function ContactDetails() {
         .contact-details-header h2 {
           font-size: 24px;
           font-weight: 700;
-          color: #1e1b4b;
+          color: var(--text-primary);
           letter-spacing: -0.01em;
         }
 
         .contact-details-header p {
-          color: #7c3aed;
+         color: var(--heading-color);
           font-weight: 600;
           font-size: 14px;
           margin-top: 4px;
@@ -349,7 +349,7 @@ function ContactDetails() {
         /* ===== SECTIONS ===== */
         .contact-details-section {
           padding: 24px 0;
-          border-bottom: 1px solid #f3e8ff;
+          border-bottom: 1px solid var(--border);
         }
 
         .contact-details-section:last-of-type {
@@ -359,7 +359,7 @@ function ContactDetails() {
         .contact-details-section h3 {
           font-size: 13px;
           font-weight: 700;
-          color: #8b8a9e;
+          color: var(--text-secondary);
           text-transform: uppercase;
           letter-spacing: 0.06em;
           margin-bottom: 16px;
@@ -374,14 +374,14 @@ function ContactDetails() {
         .detail-item {
           padding: 14px 18px;
           border-radius: 12px;
-          background: #faf5ff;
-          border: 1px solid #f3e8ff;
-          transition: all 0.3s ease;
+          background: var(--surface);
+          border: 1px solid var(--border);
+          transition: all 0.18s ease;
         }
 
         .detail-item:hover {
-          border-color: #e9d5ff;
-          background: #f5f0ff;
+          border-color: var(--border-strong);
+          background: var(--surface);
         }
 
         .detail-item span {
@@ -407,7 +407,7 @@ function ContactDetails() {
           gap: 12px;
           margin-top: 28px;
           padding-top: 24px;
-          border-top: 1px solid #f3e8ff;
+          border-top: 1px solid var(--border);
         }
 
         .edit-contact-button,
@@ -427,27 +427,26 @@ function ContactDetails() {
         }
 
         .edit-contact-button {
-          background: #f3e8ff;
-          border-color: #d8b4fe;
-          color: #7c3aed;
+          background: var(--sidebar-bg);
+          border-color: transparent;
+          color: #fff;
         }
 
         .edit-contact-button:hover {
-          background: #e9d5ff;
-          border-color: #c084fc;
-          box-shadow: 0 4px 16px rgba(139, 92, 246, 0.1);
+          background: var(--heading-color);
+          box-shadow: 0 8px 32px rgba(30,58,91,0.12);
           transform: translateY(-2px);
         }
 
         .delete-contact-button {
-          background: #fef2f2;
-          border-color: #fecaca;
-          color: #ef4444;
+          background: var(--danger-light);
+          border-color: rgba(220,34,34,0.12);
+          color: var(--danger);
         }
 
         .delete-contact-button:hover:not(:disabled) {
           background: #fee2e2;
-          border-color: #fca5a5;
+          border-color: rgba(220,34,34,0.28);
           transform: translateY(-2px);
         }
 
@@ -489,13 +488,13 @@ function ContactDetails() {
         .modal-box {
           width: 100%;
           max-width: 400px;
-          background: #ffffff;
+          background: var(--surface);
           border-radius: 20px;
           padding: 36px 32px 28px;
           text-align: center;
-          box-shadow: 0 20px 60px rgba(30, 27, 75, 0.12);
+          box-shadow: 0 20px 60px rgba(16,24,40,0.08);
           animation: modalSlideUp 0.3s ease;
-          border: 1px solid #e9d5ff;
+          border: 1px solid var(--border);
         }
 
         .modal-warning-icon {
@@ -547,7 +546,7 @@ function ContactDetails() {
 
         .modal-cancel-button {
           background: #f5f0ff;
-          border-color: #e9d5ff;
+          border-color: var(--border);
           color: #4c1d95;
         }
 

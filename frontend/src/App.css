@@ -69,7 +69,7 @@ input, textarea, select {
   align-items: center;
   justify-content: center;
   padding: 60px;
-  background: linear-gradient(165deg, #0f172a 0%, #1e1b4b 55%, #312e81 100%);
+  background: linear-gradient(165deg, #1E3A5F 0%, #133046 55%, #0b2830 100%);
   color: #fff;
 }
 
@@ -78,7 +78,7 @@ input, textarea, select {
   position: absolute;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(20,184,166,0.08) 0%, transparent 70%);
   top: -200px;
   right: -200px;
   animation: floatBlob 12s ease-in-out infinite;
@@ -89,7 +89,7 @@ input, textarea, select {
   position: absolute;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(79, 70, 229, 0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(30,58,95,0.06) 0%, transparent 70%);
   bottom: -150px;
   left: -150px;
   animation: floatBlob 15s ease-in-out infinite reverse;
@@ -122,15 +122,15 @@ input, textarea, select {
   align-items: center;
   justify-content: center;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(8px);
   font-weight: 700;
   font-size: 16px;
   letter-spacing: 0.02em;
   margin-bottom: 32px;
-  color: #c7d2fe;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  color: #ffffff;
+  box-shadow: 0 8px 28px rgba(18,40,48,0.10);
 }
 
 .brand-content h1 {
@@ -179,8 +179,8 @@ input, textarea, select {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(99, 102, 241, 0.2);
-  color: #a5b4fc;
+  background: rgba(20,184,166,0.18);
+  color: #ffffff;
   font-size: 11px;
 }
 
@@ -230,7 +230,7 @@ input, textarea, select {
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  background: var(--background);
+  background: #F7F9FB; /* very light gray background for auth */
 }
 
 .auth-card {
@@ -267,7 +267,7 @@ input, textarea, select {
   font-weight: 700;
   font-size: 16px;
   letter-spacing: 0.02em;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+  box-shadow: 0 4px 12px rgba(18,40,48,0.12);
   transition: transform 0.2s var(--ease);
 }
 
@@ -334,7 +334,7 @@ input, textarea, select {
 .form-group select:focus,
 .form-group textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.08);
+  box-shadow: 0 0 0 4px rgba(20,184,166,0.08);
 }
 
 .form-group input::placeholder,
@@ -364,7 +364,7 @@ input, textarea, select {
 .form-group.floating input:focus,
 .form-group.floating select:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.08);
+  box-shadow: 0 0 0 4px rgba(20,184,166,0.08);
 }
 
 .form-group.floating label {
@@ -407,7 +407,7 @@ input, textarea, select {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.01em;
-  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 2px 8px rgba(20,184,166,0.14);
   position: relative;
   overflow: hidden;
   height: 52px;
@@ -428,7 +428,7 @@ input, textarea, select {
 
 .auth-button:hover:not(:disabled) {
   background: var(--primary-hover);
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 6px 20px rgba(20,184,166,0.18);
   transform: translateY(-2px);
 }
 
@@ -540,7 +540,10 @@ input, textarea, select {
 .app-shell {
   display: flex;
   min-height: 100vh;
-  background: var(--background);
+  background:
+    linear-gradient(120deg, rgba(255,255,255,.52), transparent 38%),
+    var(--background);
+  perspective: 1200px;
 }
 
 .sidebar {
@@ -548,13 +551,16 @@ input, textarea, select {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  background: var(--sidebar-bg);
+  background:
+    linear-gradient(155deg, #183c59 0%, var(--sidebar-bg) 52%, #102e43 100%);
   border-right: 1px solid var(--sidebar-border);
   padding: 24px 16px;
   position: sticky;
   top: 0;
   height: 100vh;
   overflow-y: auto;
+  box-shadow: 14px 0 36px rgba(15, 45, 65, 0.16);
+  z-index: 2;
 }
 
 .sidebar-logo {
@@ -577,7 +583,8 @@ input, textarea, select {
   font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.02em;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 8px 0 #0b817b, 0 14px 24px rgba(0,0,0,.18);
+  transform: translateY(-2px);
 }
 
 .sidebar-logo span {
@@ -637,6 +644,8 @@ input, textarea, select {
   color: var(--sidebar-active-text);
   border-left-color: var(--sidebar-active-border);
   font-weight: 600;
+  box-shadow: inset 0 1px rgba(255,255,255,.1), 0 8px 18px rgba(0,0,0,.12);
+  transform: translateX(3px);
 }
 
 .sidebar-link.active svg {
@@ -681,7 +690,7 @@ input, textarea, select {
 .dashboard-header {
   min-height: 72px;
   padding: 16px 5%;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(250, 253, 253, 0.78);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
@@ -692,6 +701,7 @@ input, textarea, select {
   top: 0;
   z-index: 20;
   gap: 16px;
+  box-shadow: 0 1px 0 rgba(255,255,255,.8), 0 8px 24px rgba(30, 58, 95, .05);
 }
 
 .dashboard-header-left h1 {
@@ -748,7 +758,7 @@ input, textarea, select {
   background: var(--primary);
   border-color: var(--primary);
   color: #fff;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 4px 12px rgba(18,40,48,0.12);
 }
 
 /* =========================================
@@ -760,6 +770,12 @@ input, textarea, select {
   max-width: 1280px;
   margin: auto;
   padding: 32px 0 60px;
+animation: content-enter .55s var(--ease) both;
+}
+
+@keyframes content-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .contacts-header {
@@ -795,13 +811,17 @@ input, textarea, select {
   color: #fff;
   font-weight: 600;
   font-size: 13.5px;
-  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
-  transition: all 0.2s var(--ease);
+  box-shadow:
+  0 2px 8px rgba(20, 184, 166, 0.18),
+  0 3px 0 #d7e2e4,
+  0 14px 28px rgba(30, 58, 95, 0.08);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
+  
 }
 
 .add-contact-button:hover {
   background: var(--primary-hover);
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 6px 20px rgba(20,184,166,0.28);
   transform: translateY(-2px);
 }
 
@@ -832,9 +852,9 @@ input, textarea, select {
 }
 
 .stat-card:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 5px 0 #c7d6d9, 0 20px 34px rgba(30, 58, 95, .14);
   border-color: var(--primary-light);
-  transform: translateY(-2px);
+  transform: translateY(-5px) rotateX(2deg);
 }
 
 .stat-card span {
@@ -895,7 +915,7 @@ input, textarea, select {
 
 .search-wrapper .search-input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.08);
+  box-shadow: 0 0 0 4px rgba(20,184,166,0.08);
 }
 
 .contact-count {
@@ -920,14 +940,14 @@ input, textarea, select {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 22px 24px;
-  box-shadow: var(--shadow-xs);
+  box-shadow: 0 4px 0 #d5e1e3, 0 14px 26px rgba(30, 58, 95, .08);
   transition: all 0.25s var(--ease);
   cursor: default;
 }
 
 .contact-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-6px) rotateX(1deg);
+  box-shadow: 0 6px 0 #c3d3d6, 0 22px 34px rgba(30, 58, 95, .15);
   border-color: var(--border-strong);
 }
 
@@ -951,6 +971,7 @@ input, textarea, select {
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 0.01em;
+  box-shadow: inset 0 2px rgba(255,255,255,.7), 0 5px 0 rgba(20, 184, 166, .18);
 }
 
 .contact-avatar.large {
@@ -1017,7 +1038,7 @@ input, textarea, select {
   background: var(--primary);
   border-color: var(--primary);
   color: #fff;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 4px 12px rgba(20,184,166,0.12);
 }
 
 .contact-card-actions button.delete:hover {
@@ -1201,26 +1222,29 @@ input, textarea, select {
 }
 
 .edit-contact-button {
-  background: transparent;
-  border-color: var(--border);
-  color: var(--text-primary);
+  background: var(--heading-color);
+  color: #fff;
+  border-color: var(--heading-color);
+  box-shadow: 0 2px 8px rgba(18,40,48,0.12);
 }
 
 .edit-contact-button:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: var(--primary-light);
+  background: #16344e; /* slightly darker navy */
+  border-color: #16344e;
+  transform: translateY(-1px);
 }
 
 .delete-contact-button {
-  background: transparent;
-  border-color: var(--border);
-  color: var(--danger);
+  background: var(--danger);
+  color: #fff;
+  border-color: var(--danger);
+  box-shadow: 0 2px 8px rgba(239,68,68,0.12);
 }
 
 .delete-contact-button:hover {
-  background: var(--danger-light);
-  border-color: var(--danger);
+  background: #b91c1c;
+  border-color: #b91c1c;
+  transform: translateY(-1px);
 }
 
 /* =========================================
@@ -1266,12 +1290,12 @@ input, textarea, select {
 .form-actions button[type="submit"] {
   background: var(--primary);
   color: #fff;
-  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 2px 8px rgba(20,184,166,0.14);
 }
 
 .form-actions button[type="submit"]:hover {
   background: var(--primary-hover);
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 6px 20px rgba(20,184,166,0.18);
   transform: translateY(-2px);
 }
 
@@ -1321,7 +1345,7 @@ input, textarea, select {
   font-size: 30px;
   font-weight: 700;
   flex-shrink: 0;
-  box-shadow: 0 4px 16px rgba(79, 70, 229, 0.25);
+  box-shadow: 0 4px 16px rgba(18, 40, 48, 0.18);
 }
 
 .profile-header h2 {
@@ -1398,7 +1422,7 @@ input, textarea, select {
 
 .empty-state button:hover {
   background: var(--primary-hover);
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 6px 20px rgba(20,184,166,0.12);
   transform: translateY(-2px);
 }
 

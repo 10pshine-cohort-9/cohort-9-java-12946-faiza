@@ -123,18 +123,18 @@ function EditContact() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', background: '#f5f3ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ minHeight: '100vh', background: 'var(--background)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ 
             width: '48px', 
             height: '48px', 
-            border: '3px solid #e9d5ff', 
-            borderTopColor: '#8b5cf6', 
+                  border: '3px solid var(--border)', 
+                  borderTopColor: 'var(--primary)', 
             borderRadius: '50%', 
             margin: '0 auto 16px',
             animation: 'spin 0.7s linear infinite'
           }}></div>
-          <p style={{ color: '#8b8a9e', fontSize: '14px' }}>Loading contact...</p>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>Loading contact...</p>
         </div>
         <style>{`
           @keyframes spin {
@@ -158,7 +158,7 @@ function EditContact() {
 
         body {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-          background: #f5f3ff;
+          background: var(--background);
         }
 
         /* ===== Animations ===== */
@@ -179,7 +179,7 @@ function EditContact() {
         /* ===== APP CONTAINER ===== */
         .app-container {
           min-height: 100vh;
-          background: #f5f3ff;
+          background: var(--background);
         }
 
         /* ===== HEADER ===== */
@@ -188,7 +188,7 @@ function EditContact() {
           padding: 16px 5%;
           background: rgba(255, 255, 255, 0.7);
           backdrop-filter: blur(16px);
-          border-bottom: 1px solid rgba(233, 213, 255, 0.5);
+          border-bottom: 1px solid var(--border);
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -244,9 +244,9 @@ function EditContact() {
           gap: 8px;
           padding: 10px 20px;
           border-radius: 12px;
-          border: 1.5px solid #e9d5ff;
-          background: #ffffff;
-          color: #4c1d95;
+          border: 1.5px solid var(--border-strong);
+          background: var(--surface);
+          color: var(--heading-color);
           font-weight: 600;
           font-size: 13px;
           transition: all 0.3s ease;
@@ -255,15 +255,15 @@ function EditContact() {
         }
 
         .back-button:hover {
-          border-color: #a78bfa;
-          background: #f3e8ff;
+          border-color: var(--primary-hover);
+          background: rgba(var(--primary-rgb), 0.06);
           transform: translateX(-4px);
         }
 
         /* ===== FORM CARD ===== */
         .contact-form-card {
           background: #ffffff;
-          border: 1px solid #e9d5ff;
+          border: 1px solid var(--border);
           border-radius: 20px;
           padding: 36px 40px;
           box-shadow: 0 4px 20px rgba(139, 92, 246, 0.04);
@@ -329,7 +329,7 @@ function EditContact() {
         .form-group input {
           width: 100%;
           padding: 12px 16px;
-          border: 1.5px solid #e9d5ff;
+          border: 1.5px solid var(--border);
           border-radius: 12px;
           font-size: 14px;
           background: #faf5ff;
@@ -348,22 +348,22 @@ function EditContact() {
           background: #ffffff;
         }
 
-        .form-group input:focus {
-          border-color: #a78bfa;
-          background: #ffffff;
-          box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.12);
-        }
+       .form-group input:focus {
+  border-color: var(--primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.25);
+}
 
         /* ===== SECTION HEADERS ===== */
         .form-section-title {
           font-size: 13px;
           font-weight: 700;
-          color: #8b8a9e;
+          color: var(--text-secondary);
           text-transform: uppercase;
           letter-spacing: 0.06em;
           margin: 24px 0 16px;
           padding-top: 20px;
-          border-top: 1px solid #f3e8ff;
+          border-top: 1px solid var(--border);
         }
 
         .form-section-title:first-of-type {
@@ -378,7 +378,7 @@ function EditContact() {
           gap: 12px;
           margin-top: 28px;
           padding-top: 24px;
-          border-top: 1px solid #f3e8ff;
+          border-top: 1px solid var(--border);
         }
 
         .form-actions button {
@@ -387,14 +387,14 @@ function EditContact() {
           border-radius: 12px;
           font-weight: 600;
           font-size: 14px;
-          transition: all 0.3s ease;
+          transition: all 0.18s ease;
           cursor: pointer;
         }
 
         .form-actions button[type="button"] {
-          background: #ffffff;
-          border: 1.5px solid #e9d5ff;
-          color: #4c1d95;
+          background: var(--surface);
+          border: 1.5px solid var(--border);
+          color: var(--heading-color);
         }
 
         .form-actions button[type="button"]:hover {
@@ -403,7 +403,7 @@ function EditContact() {
         }
 
         .form-actions button[type="submit"] {
-          background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+          background: linear-gradient(135deg, var(--primary), var(--sidebar-bg));
           border: none;
           color: #fff;
           box-shadow: 0 4px 16px rgba(139, 92, 246, 0.2);

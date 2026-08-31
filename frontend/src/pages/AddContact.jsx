@@ -102,7 +102,7 @@ function AddContact() {
 
         body {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-          background: #f5f3ff;
+          background: var(--background);
         }
 
         /* ===== Animations ===== */
@@ -123,7 +123,7 @@ function AddContact() {
         /* ===== APP CONTAINER ===== */
         .app-container {
           min-height: 100vh;
-          background: #f5f3ff;
+                  background: var(--background);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -134,12 +134,12 @@ function AddContact() {
         .contact-form-card {
           width: 100%;
           max-width: 680px;
-          background: #ffffff;
-          border: 1px solid #e9d5ff;
-          border-radius: 20px;
+                  background: var(--surface);
+                  border: 1px solid var(--border);
+                  border-radius: var(--radius-lg);
           padding: 36px 40px;
-          box-shadow: 0 4px 20px rgba(139, 92, 246, 0.04);
-          animation: fadeInUp 0.5s ease;
+                  box-shadow: var(--shadow-sm);
+                  animation: fadeInUp 0.45s var(--ease);
         }
 
         /* ===== BACK BUTTON ===== */
@@ -149,9 +149,9 @@ function AddContact() {
           gap: 8px;
           padding: 10px 20px;
           border-radius: 12px;
-          border: 1.5px solid #e9d5ff;
+          border: 1.5px solid var(--border);
           background: #ffffff;
-          color: #4c1d95;
+          color: var(--heading-color);
           font-weight: 600;
           font-size: 13px;
           transition: all 0.3s ease;
@@ -160,8 +160,8 @@ function AddContact() {
         }
 
         .back-button:hover {
-          border-color: #a78bfa;
-          background: #f3e8ff;
+                  border-color: var(--primary);
+                  background: var(--primary-light);
           transform: translateX(-4px);
         }
 
@@ -179,11 +179,11 @@ function AddContact() {
           align-items: center;
           justify-content: center;
           border-radius: 16px;
-          background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+                  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
           color: #fff;
           font-size: 24px;
           font-weight: 700;
-          box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25);
+                  box-shadow: 0 4px 16px rgba(var(--primary-rgb), 0.18);
         }
 
         .auth-header h1 {
@@ -231,7 +231,7 @@ function AddContact() {
           display: block;
           font-size: 13px;
           font-weight: 600;
-          color: #4c1d95;
+          color: var(--heading-color);
           margin-bottom: 6px;
         }
 
@@ -244,11 +244,11 @@ function AddContact() {
         .form-group input {
           width: 100%;
           padding: 12px 16px;
-          border: 1.5px solid #e9d5ff;
+          border: 1.5px solid var(--border);
           border-radius: 12px;
           font-size: 14px;
-          background: #faf5ff;
-          color: #1e1b4b;
+          background: var(--surface);
+          color: var(--text-primary);
           transition: all 0.3s ease;
           outline: none;
           font-family: 'Inter', sans-serif;
@@ -259,26 +259,25 @@ function AddContact() {
         }
 
         .form-group input:hover {
-          border-color: #d8b4fe;
-          background: #ffffff;
+          border-color: var(--border-strong);
+          background: var(--surface);
         }
 
-        .form-group input:focus {
-          border-color: #a78bfa;
-          background: #ffffff;
-          box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.12);
-        }
-
+       .form-group input:focus {
+  border-color: var(--primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.25);
+}
         /* ===== SECTION HEADERS ===== */
         .form-section-title {
           font-size: 13px;
           font-weight: 700;
-          color: #8b8a9e;
+          color: var(--text-secondary);
           text-transform: uppercase;
           letter-spacing: 0.06em;
           margin: 24px 0 16px;
           padding-top: 20px;
-          border-top: 1px solid #f3e8ff;
+          border-top: 1px solid var(--border);
         }
 
         .form-section-title:first-of-type {
@@ -293,7 +292,7 @@ function AddContact() {
           gap: 12px;
           margin-top: 28px;
           padding-top: 24px;
-          border-top: 1px solid #f3e8ff;
+          border-top: 1px solid var(--border);
         }
 
         .form-actions button {
@@ -302,23 +301,23 @@ function AddContact() {
           border-radius: 12px;
           font-weight: 600;
           font-size: 14px;
-          transition: all 0.3s ease;
+          transition: all 0.18s ease;
           cursor: pointer;
         }
 
         .form-actions button[type="button"] {
-          background: #ffffff;
-          border: 1.5px solid #e9d5ff;
-          color: #4c1d95;
+          background: var(--surface);
+          border: 1.5px solid var(--border);
+          color: var(--heading-color);
         }
 
         .form-actions button[type="button"]:hover {
-          background: #f5f0ff;
-          border-color: #d8b4fe;
+          background: rgba(var(--primary-rgb), 0.06);
+          border-color: var(--border-strong);
         }
 
         .form-actions button[type="submit"] {
-          background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+          background: linear-gradient(135deg, var(--primary), var(--sidebar-bg));
           border: none;
           color: #fff;
           box-shadow: 0 4px 16px rgba(139, 92, 246, 0.2);

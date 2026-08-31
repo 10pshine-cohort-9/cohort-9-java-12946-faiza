@@ -133,7 +133,7 @@ useEffect(() => {
 
         body {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-          background: #f5f3ff;
+          background: var(--background);
         }
 
         /* ===== Animations ===== */
@@ -155,7 +155,7 @@ useEffect(() => {
         /* ===== APP CONTAINER ===== */
         .app-container {
           min-height: 100vh;
-          background: #f5f3ff;
+          background: var(--background);
         }
 
         /* ===== HEADER ===== */
@@ -164,7 +164,7 @@ useEffect(() => {
           padding: 16px 5%;
           background: rgba(255, 255, 255, 0.7);
           backdrop-filter: blur(16px);
-          border-bottom: 1px solid rgba(233, 213, 255, 0.5);
+          border-bottom: 1px solid var(--border);
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -201,14 +201,14 @@ useEffect(() => {
           font-size: 13px;
           transition: all 0.3s ease;
           cursor: pointer;
-          background: #f3e8ff;
-          border: 1.5px solid #d8b4fe;
-          color: #7c3aed;
+          background: rgba(var(--primary-rgb), 0.06);
+          border: 1.5px solid var(--border-strong);
+         color: var(--heading-color);
         }
 
         .back-button:hover {
-          background: #e9d5ff;
-          border-color: #c084fc;
+          background: rgba(var(--primary-rgb), 0.10);
+          border-color: var(--primary-hover);
         }
 
         .logout-button {
@@ -270,7 +270,7 @@ useEffect(() => {
         /* ===== PROFILE CARD ===== */
         .profile-card {
           background: #ffffff;
-          border: 1px solid #e9d5ff;
+          border: 1px solid var(--border);
           border-radius: 20px;
           padding: 36px 40px;
           box-shadow: 0 4px 20px rgba(139, 92, 246, 0.04);
@@ -283,7 +283,7 @@ useEffect(() => {
           align-items: center;
           gap: 24px;
           padding-bottom: 28px;
-          border-bottom: 1px solid #f3e8ff;
+          border-bottom: 1px solid var(--border);
           margin-bottom: 28px;
         }
 
@@ -294,12 +294,12 @@ useEffect(() => {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+          background: linear-gradient(135deg, var(--primary), var(--sidebar-bg));
           color: #fff;
           font-size: 30px;
           font-weight: 700;
           flex-shrink: 0;
-          box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25);
+          box-shadow: 0 6px 20px rgba(var(--primary-rgb), 0.14);
         }
 
         .profile-header h2 {
@@ -336,15 +336,14 @@ useEffect(() => {
           padding: 14px 18px;
           border-radius: 12px;
           background: #faf5ff;
-          border: 1px solid #f3e8ff;
+          border: 1px solid var(--border);
           transition: all 0.3s ease;
         }
 
-        .detail-item:hover {
-          border-color: #e9d5ff;
-          background: #f5f0ff;
-        }
-
+   .detail-item:hover {
+  border-color: var(--border-strong);
+  background: var(--primary-light);
+}
         .detail-item .detail-label {
           display: flex;
           align-items: center;
@@ -400,7 +399,7 @@ useEffect(() => {
         }
 
         .change-password-btn:hover {
-          background: #f3e8ff;
+          background: var(--primary-light);
           border-color: #c084fc;
           transform: translateY(-2px);
         }
@@ -409,7 +408,7 @@ useEffect(() => {
         .password-section {
           margin-top: 24px;
           padding-top: 24px;
-          border-top: 1px solid #f3e8ff;
+          border-top: 1px solid var(--border);
         }
 
         .password-section h3 {
@@ -456,11 +455,11 @@ useEffect(() => {
           background: #ffffff;
         }
 
-        .form-group input:focus {
-          border-color: #a78bfa;
-          background: #ffffff;
-          box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.12);
-        }
+       .form-group input:focus {
+  border-color: var(--primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.25);
+}
 
         .form-actions {
           display: flex;
@@ -490,14 +489,14 @@ useEffect(() => {
         }
 
         .form-actions button[type="submit"] {
-          background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+          background: var(--primary);
           border: none;
           color: #fff;
-          box-shadow: 0 4px 16px rgba(139, 92, 246, 0.2);
+          box-shadow: 0 6px 20px rgba(var(--primary-rgb), 0.12);
         }
 
         .form-actions button[type="submit"]:hover:not(:disabled) {
-          box-shadow: 0 6px 28px rgba(139, 92, 246, 0.35);
+          box-shadow: 0 10px 40px rgba(var(--primary-rgb), 0.18);
           transform: translateY(-2px);
         }
 

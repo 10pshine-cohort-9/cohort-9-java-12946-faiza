@@ -8,113 +8,99 @@ import App from "./App.jsx";
 
 
 class ErrorBoundary extends Component {
-
   constructor(props) {
-
     super(props);
 
     this.state = {
-      hasError: false
+      hasError: false,
+      error: null,
+      errorInfo: null
     };
-
   }
 
-
   static getDerivedStateFromError() {
-
     return {
       hasError: true
     };
-
   }
 
-
   componentDidCatch(error, errorInfo) {
-
     console.error(
       "Application rendering error:",
       error,
       errorInfo
     );
 
+    this.setState({ error, errorInfo });
   }
 
+  formatError(error) {
+    try {
+      return String(error);
+    } catch {
+      return "Unknown error";
+    }
+  }
 
   handleRefresh = () => {
-
     window.location.reload();
-
   };
 
-
   render() {
-
-
     if (this.state.hasError) {
-
-
       return (
+        <div>
+          {/* Existing UI */}
 
-        <div
-          style={{
-            minHeight: "100vh",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "var(--background)",
-            padding: "20px"
-          }}
-        >
-
-          <div
-            className="card"
-            style={{
-              maxWidth: "450px",
-              padding: "40px",
-              textAlign: "center"
-            }}
-          >
-
-            <h1>
-              Something went wrong
-            </h1>
-
-
-            <p style={{marginTop:"12px"}}>
-              We couldn't load this page.
-              Please refresh and try again.
-            </p>
-
-
-            <button
-              className="auth-button"
-              style={{
-                marginTop:"25px"
-              }}
-              onClick={this.handleRefresh}
-            >
-
-              Refresh Page
-
-            </button>
-
-
-          </div>
-
-        </div>
-
-      );
-
-    }
-
-
-    return this.props.children;
-
-  }
-
+          <button
+            className="auth-button"
+            onClick={async () => {
+              try {
+                if (!window.navigator.clipboard) {
+  throw new Error("Clipboard API is not available.");
 }
 
+await window.navigator.clipboard.writeText(
+  JSON.stringify({
+    error: this.formatError(this.state.error),
+    stack: this.state.errorInfo?.componentStack
+  })
+);
+              } catch (error) {
+                console.error("Could not copy error details:", error);
+              }
+            }}
+          >
+            Copy error
+          </button>
 
+          {this.state.error && (
+            <details>
+              <summary>View error details</summary>
+
+              <div>
+                <div>
+                  <strong>Message:</strong>{" "}
+                  {this.formatError(this.state.error)}
+                </div>
+
+                <div>
+                  <strong>Stack:</strong>
+
+                  <pre>
+                    {this.state.errorInfo?.componentStack}
+                  </pre>
+                </div>
+              </div>
+            </details>
+          )}
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 createRoot(
   document.getElementById("root")

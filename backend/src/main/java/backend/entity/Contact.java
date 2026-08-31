@@ -1,6 +1,8 @@
 package backend.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import java.time.Instant;
 
 @Entity
 @Table(name = "contacts")
@@ -31,6 +33,10 @@ public class Contact {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
 
     public Contact() {
     }
@@ -113,5 +119,13 @@ public class Contact {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 }
